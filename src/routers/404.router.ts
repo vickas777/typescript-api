@@ -1,8 +1,8 @@
 import express, {IRouter} from 'express'
-import BasicRoute from '../interfaces/route.interface'
+import BasicRouter from '../interfaces/router.interface'
 import notFoundGetHandler from '../handlers/404/404.get.handler'
 
-export default class NotFoundRoute implements BasicRoute{
+export default class RouteNotFoundRouter implements BasicRouter{
   public router: IRouter = express.Router()
   
   constructor(private path: string) {

@@ -1,14 +1,13 @@
 import {Application} from "express";
 import * as bodyParser from "body-parser";
 
-import {DevLogger, ProductionLogger} from "./middlewares/logger.middleware";
+import {DevLoggerProvider, ProductionLoggerProvider} from "./loggerProvider";
 
 import Registrator from './interfaces/registerator.interface'
-import BasicRoute from './interfaces/route.interface'
 
-import IndexRouter from './routes/index.route'
-import MazeRouter from './routes/maze.route'
-import NotFoundRoute from './routes/404.route'
+import IndexRouter from './routers/index.router'
+import MazeRouter from './routers/maze.router'
+import RouteNotFoundRouter from './routers/404.router'
 
 export class MiddleWaresRegistrator implements Registrator{
   constructor(private app: Application) {
@@ -22,24 +21,23 @@ export class MiddleWaresRegistrator implements Registrator{
     return [
       bodyParser.json(),
       bodyParser.urlencoded({extended: true}),
-      (process.env.NODE_ENV === 'dev' ? new DevLogger() : new ProductionLogger()).getLogger()
+      (process.env.NODE_ENV === 'dev' ? new DevLoggerProvider() : new ProductionLoggerProvider()).getLogger()
     ]
   }
 }
 
-export class RoutesRegistrator implements Registrator{
+export class RoutersRegistrator implements Registrator{
   constructor(private app: Application) {}
   
   register(){
-    this.getRouterList().forEach((router: BasicRoute)  => this.app.use(router.router))
+    this.getRouterList().forEach(({router}) => this.app.use(router))
   }
   
   private getRouterList(){
     return [
       new IndexRouter('/'),
-      
       new MazeRouter('/maze'),
-      new NotFoundRoute('*')
+      new RouteNotFoundRouter('*')
     ]
   }
 }

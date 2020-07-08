@@ -1,8 +1,8 @@
 import express, {IRouter} from 'express'
-import BasicRoute from '../interfaces/route.interface'
+import BasicRouter from '../interfaces/router.interface'
 import indexPageController from '../handlers/index/index.get.handler'
 
-export default class IndexRouter implements BasicRoute{
+export default class IndexRouter implements BasicRouter{
   public router: IRouter = express.Router()
   
   constructor(private path: string) {

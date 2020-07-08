@@ -1,6 +1,6 @@
-import Logger from '../interfaces/logger.interface'
+import LoggerProvider from './interfaces/loggerProvider.interface'
 import morgan from 'morgan'
-export class DevLogger implements Logger {
+export class DevLoggerProvider implements LoggerProvider {
   private logger: any
   
   constructor() {
@@ -12,7 +12,7 @@ export class DevLogger implements Logger {
   }
 }
 
-export class ProductionLogger implements Logger {
+export class ProductionLoggerProvider implements LoggerProvider {
   private logger: any
   
   constructor() {
