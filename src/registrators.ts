@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Application } from 'express';
 import * as bodyParser from 'body-parser';
 
