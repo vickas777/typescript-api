@@ -1,7 +1,7 @@
 # Description
 
 ## General info
-Project have been built with express.js and typescript. For tests have used a jest framework. There is possibility to pack app in a docker container.
+Project have been built with express.js and typescript. For tests have used a jest framework. There is possibility to pack app in a docker container. No GUI in an app. You need `Postman` or `curl` to see how it works.
 
 **All further operations should be done in a source folder** 
 
