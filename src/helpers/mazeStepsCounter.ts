@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-type MazeConstructionItem = string | boolean | number;
+type MazeBlock = string | boolean | number;
 
 export default class MazeStepsCounter {
   public static exceptionalStates = {
@@ -10,9 +10,9 @@ export default class MazeStepsCounter {
   private visitedMatrix: Array<Array<boolean>>;
 
   constructor(
-    private mazeMatrix: Array<Array<MazeConstructionItem>>,
-    private allowedBlock: MazeConstructionItem,
-    private deniedBlock: MazeConstructionItem,
+    private mazeMatrix: Array<Array<MazeBlock>>,
+    private allowedBlock: MazeBlock,
+    private deniedBlock: MazeBlock,
   ) {
     this.visitedMatrix = this.initVisitedMatrix();
   }
