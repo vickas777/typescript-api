@@ -9,14 +9,6 @@ const textInput = [
 ];
 
 const numberInput = [
-  [1, 1, 1],
-  [0, 0, 1],
-  [1, 1, 1],
-  [1, 0, 0],
-  [1, 1, 1],
-];
-
-const complexInput = [
   [1, 1, 1, 1],
   [0, 0, 1, 1],
   [1, 1, 1, 1],
@@ -38,20 +30,17 @@ function deepCopy(data: {} | []) {
 
 describe('mazeStepsCounter', () => {
   it('should work with different data types', () => {
-    expect.assertions(4);
+    expect.assertions(3);
     let mazeStepsCounter: MazeStepsCounter;
 
     mazeStepsCounter = new MazeStepsCounter(textInput, '.', '#');
     expect(mazeStepsCounter.countMinSteps()).toStrictEqual(10);
 
     mazeStepsCounter = new MazeStepsCounter(numberInput, 1, 0);
-    expect(mazeStepsCounter.countMinSteps()).toStrictEqual(10);
+    expect(mazeStepsCounter.countMinSteps()).toStrictEqual(7);
 
     mazeStepsCounter = new MazeStepsCounter(booleanInput, true, false);
     expect(mazeStepsCounter.countMinSteps()).toStrictEqual(10);
-
-    mazeStepsCounter = new MazeStepsCounter(complexInput, 1, 0);
-    expect(mazeStepsCounter.countMinSteps()).toStrictEqual(7);
   });
 
   it('should have static values for exceptional situations', () => {
@@ -59,6 +48,14 @@ describe('mazeStepsCounter', () => {
     expect(MazeStepsCounter).toHaveProperty('exceptionalStates');
     expect(MazeStepsCounter.exceptionalStates).toHaveProperty('WrongInput', -1);
     expect(MazeStepsCounter.exceptionalStates).toHaveProperty('UnreachableEnd', Infinity);
+  });
+
+  it('should return number of steps for one allowed block', () => {
+    expect.assertions(1);
+    const input = [[1]];
+
+    const mazeStepsCounter = new MazeStepsCounter(input, 1, 0);
+    expect(mazeStepsCounter.countMinSteps()).toStrictEqual(0);
   });
 
   it('should return result if there are inappropriate blocks', () => {
@@ -77,7 +74,7 @@ describe('mazeStepsCounter', () => {
     const noEnterInput = deepCopy(numberInput);
     noEnterInput[0][0] = 0;
 
-    const expected: number = MazeStepsCounter.exceptionalStates.WrongInput;
+    const expected: number = MazeStepsCounter.exceptionalStates.UnreachableEnd;
 
     const mazeStepsCounter = new MazeStepsCounter(noEnterInput, 1, 0);
     expect(mazeStepsCounter.countMinSteps()).toStrictEqual(expected);
